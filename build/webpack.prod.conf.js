@@ -53,10 +53,25 @@ const webpackConfig = merge(baseWebpackConfig, {
         // Compress extracted CSS. We are using this plugin so that possible
         // duplicated CSS from different components can be deduped.
         new OptimizeCSSPlugin({
-            cssProcessorOptions: config.build.productionSourceMap ?
-                { safe: true, map: { inline: false } } :
-                { safe: true }
+            cssProcessorOptions: config.build.productionSourceMap ? { safe: true, map: { inline: false } } : { safe: true }
         }),
+        // generate dist index.html with correct asset hash for caching.
+        // you can customize output by editing /index.html
+        // see https://github.com/ampedandwired/html-webpack-plugin
+        // new HtmlWebpackPlugin({
+        //     filename: config.build.index,
+        //     template: 'index.html',
+        //     inject: true,
+        //     minify: {
+        //         removeComments: true,
+        //         collapseWhitespace: true,
+        //         removeAttributeQuotes: true
+        //             // more options:
+        //             // https://github.com/kangax/html-minifier#options-quick-reference
+        //     },
+        //     // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+        //     chunksSortMode: 'dependency'
+        // }),
         // keep module.id stable when vender modules does not change
         new webpack.HashedModuleIdsPlugin(),
         // enable scope hoisting
@@ -90,7 +105,6 @@ const webpackConfig = merge(baseWebpackConfig, {
             children: true,
             minChunks: 3
         }),
-
         // copy custom static assets
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, '../static'),
